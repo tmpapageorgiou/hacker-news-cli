@@ -30,10 +30,10 @@ func main() {
 	parser := flags.NewParser(&options, flags.Default)
 	if _, err := parser.Parse(); err != nil {
 		if flagsErr, ok := err.(*flags.Error); ok && flagsErr.Type == flags.ErrHelp {
-			log.WithError(flagsErr).Error("Failed to parse options.")
-			fatalErr = err
 			return
 		}
+		fatalErr = err
+		log.WithError(err).Error("Failed to parse options.")
 	}
 
 	api := NewHackerNewsAPI(hostAPI)
